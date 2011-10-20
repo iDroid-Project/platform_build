@@ -927,7 +927,7 @@ define transform-host-m-to-o-no-deps
 $(call transform-host-c-or-s-to-o-no-deps)
 endef
 
-define tranform-host-m-to-o
+define transform-host-m-to-o
 $(transform-host-m-to-o-no-deps)
 $(transform-d-to-p)
 endef
@@ -1086,13 +1086,10 @@ endef
 ## Commands for filtering a target executable or library
 ###########################################################
 
-# Because of bug 743462 ("Prelinked image magic gets stripped
-# by arm-elf-objcopy"), we have to use soslim to strip target
-# binaries.
 define transform-to-stripped
 @mkdir -p $(dir $@)
 @echo "target Strip: $(PRIVATE_MODULE) ($@)"
-$(hide) $(SOSLIM) --strip --shady --quiet $< --outfile $@
+$(hide) $(TARGET_STRIP_COMMAND)
 endef
 
 define transform-to-prelinked
